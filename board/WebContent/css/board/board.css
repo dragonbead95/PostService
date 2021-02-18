@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+
+.align_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.container {
+  width: 70%;
+  margin-top: 50px;
+}
+
+.board_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.board_title {
+  background-color: #e9ecef;
+}
+.board_title th {
+  padding: 12px;
+}
+
+.board_content {
+  text-align: center;
+}
+
+/* start board_search section*/
+.board_search{
+	display:inline-block;
+}
+/* end board_search section*/
+
+/* start board_page_status section */
+.board_page_status {
+  text-align: right;
+  margin: 20px 0px;
+}
+/* end board_page_status section */
+
+/* start board_page section */
+.board_page {
+  text-align: center;
+  margin: 30px 0px;
+}
+.btn_page {
+  width: 15px;
+  text-align: left;
+  vertical-align: middle;
+  text-indent: -999px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0px;
+}
+
+/* end board_page section */
+
+/* start board_btn section */
+.board_btn {
+  margin-top: 50px;
+  text-align: right;
+}
+/* end board_btn section */
