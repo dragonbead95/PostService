@@ -17,13 +17,13 @@ public class PostService {
 	{
 		Post post = null;
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "select * "
 						+ "from post "
 						+ "where id=?";
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
@@ -66,7 +66,7 @@ public class PostService {
 	{
 		List<Post> list = new ArrayList<Post>();
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "select * from ("
 						+ " 				select N.* "
 						+ "					from (select * from post_view where "+field+" like ? order by regdate desc) N "
@@ -76,7 +76,7 @@ public class PostService {
 			int end = page*10;
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, "%"+query+"%");
 			pst.setInt(2, start);
@@ -122,7 +122,7 @@ public class PostService {
 	{
 		List<Post> list = new ArrayList<Post>();
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "select * from ("
 					+ " 				select N.* "
 					+ "					from (select * from post_view where "+field+" like ? order by regdate desc) N "
@@ -132,7 +132,7 @@ public class PostService {
 			int end = page*10;
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, "%"+query+"%");
 			pst.setInt(2, start);
@@ -167,11 +167,11 @@ public class PostService {
 	public boolean insertPost(String title, String writer_id, String content, String files, int pub)
 	{
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "INSERT INTO post (title, writer_id, content, files, pub) values(?,?,?,?,?)";
 					
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, title);
 			pst.setString(2, writer_id);
@@ -192,11 +192,11 @@ public class PostService {
 	public boolean updatePost(int id, String title, String content, String files)
 	{
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "UPDATE post SET title=?,regdate=sysdate, content=?, files=? WHERE id=?";
 					
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, title);
 			pst.setString(2, content);
@@ -216,11 +216,11 @@ public class PostService {
 	public boolean deletePost(int id)
 	{
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "delete from post where id=?";
 					
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
 			pst.executeUpdate();
@@ -238,11 +238,11 @@ public class PostService {
 	{
 		int count = 0;
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			String sql = "select count(*) as count from post";
 					
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			Statement pst = con.createStatement();
 			ResultSet rs = pst.executeQuery(sql);
 			
@@ -272,13 +272,13 @@ public class PostService {
 		String sqlDelete = String.format("delete from post where id in (%s)",didsCSV);
 		
 		int result = 0;
-		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		
 		try 
 		{	
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			Statement stDelete = con.createStatement(); // 실행 도구 생성
 			result += stDelete.executeUpdate(sqlDelete);
 			
@@ -309,13 +309,13 @@ public class PostService {
 		String sqlClose = String.format("update post set pub=0 where id in (%s)",cidsCSV);
 		
 		int result = 0;
-		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		
 		try 
 		{	
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
-			Connection con = DriverManager.getConnection(url,"board_admin","board_admin"); // 드라이버 매니저를 통해서 연결 객체 생성
+			Connection con = DriverManager.getConnection(url,"post","post"); // 드라이버 매니저를 통해서 연결 객체 생성
 			Statement stOpen = con.createStatement(); // 실행 도구 생성
 			result += stOpen.executeUpdate(sqlOpen);
 			Statement stClose = con.createStatement(); // 실행 도구 생성

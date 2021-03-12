@@ -1,19 +1,13 @@
 package web.entity;
 
 public class Member {
-	private String email;
+	private String id;
 	private String pwd;
-	
-	public Member(String email, String pwd) {
-		this.email = email;
-		this.pwd = pwd;
+	public String getId() {
+		return id;
 	}
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getPwd() {
 		return pwd;
@@ -21,12 +15,16 @@ public class Member {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	
-	
+	public Member(String id, String pwd) {
+		this.id = id;
+		this.pwd = pwd;
+	}
 	@Override
 	public String toString() {
-		return "Member [email=" + email + ", pwd=" + pwd + "]";
+		return "Member [id=" + id + ", pwd=" + pwd + "]";
 	}
+	
+
 	
 
 }
